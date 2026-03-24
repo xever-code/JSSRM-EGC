@@ -11,7 +11,7 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 
 # 定义变量列表（可任意增减，代码会自适应）
-vars = ['DBIL', 'HDL-C', 'TP', 'ALB', 'PGI', 'G-17']
+vars = ['age', 'HGB', 'MCHC', 'MPV', 'PDW', 'DBIL', 'HDL-C', 'TP', 'ALB', 'PGI', 'PGII', 'G-17']
 
 # 初始化 session_state 中的 data
 # 动态生成DataFrame列名：变量列表 + 预测相关列
@@ -112,7 +112,7 @@ if uploaded_file is not None:
                 label = row['label'] if 'label' in df.columns else None
 
                 # 构造新行并更新数据
-                new_data_row = row[vars].tolist() + [result_prob_pos, label]
+                new_data_row = row[vars].tolist() + [round(result_prob), label]
                 new_data = pd.DataFrame([new_data_row], columns=df_columns)
                 st.session_state['data'] = pd.concat(
                     [st.session_state['data'], new_data],
